@@ -7,38 +7,83 @@ define ash = Character("Asher", color="#38468D")
 define bryce = Character("Bryce", color="#731B1B")
 define harper = Character("Harper", color="#A245BC")
 define mum = Character("Mum", color="#000000")
+define unknown_voice = Character("Unknown_voice", color="#ffffff")
 image bg corridor = "images/Bg/corridor.jpg"
 image bg gym = "images/Bg/gym.jpg"
+image intro = "images/Characters/intro.png"
 image bg locker = "images/Bg/locker.jpg"
 image bg toilet = "images/Bg/toilet.jpg"
-
-image punch movie = Movie(play="punch.webm", side_mask = True)
-
-image ash = "images/ash.png"
-image bryce = "images/bryce.png"
-image harper = "images/harper.png"
+image bg black = "images/Bg/black.jpg"
+image bg house = "images/Bg/house.jpg"
+image bg street = "images/Bg/street.jpg"
+image bg bump = "images/Bg/bump.png"
+image punch movie = "images/punch.png"
+image kissing:
+    "images/Characters/kissing.png"
+    zoom 0.5
+image bg road = "images/Bg/street.jpg"
+image library = "images/Bg/library.png"
+image text1 = "images/Bg/text_1.png"
+image text2= "images/Bg/text_2.png"
+image text3= "images/Bg/text_3.png"
+image text4= "images/Bg/text_4.png"
+image ash:
+    "images/Characters/asher neutral.png"
+    zoom 0.5
+image ash_in_locker:
+    "images/Characters/asher_in_locker.png"
+    zoom 0.5
+image ash_talking:
+    "images/Characters/asher_talking.png"
+    zoom 0.5
+image ash_shouting:
+    "images/Characters/asher_shouting.png"
+    zoom 0.5
+image bryce:
+    "images/Characters/bryce_talking.png"
+    zoom 0.5
+image bryce_smile:
+    "images/Characters/bryce_smile.png"
+    zoom 0.5
+image bryce_shouting:
+    "images/Characters/bryce_shouting.png"
+    zoom 0.5
+image harper:
+    "images/Characters/harper_neutral.png"
+    zoom 0.5
+image harper_shouting:
+    "images/Characters/harper_shouting.png"
+    zoom 0.5
+image harper_happy:
+    "images/Characters/harper_happy.png"
+    zoom 0.5
+image crying:
+    "images/Characters/crying.png"
+    zoom 0.5
+image more_crying:
+    "images/Characters/more_crying.png"
+    zoom 0.5
+image cryingest:
+    "images/Characters/cryingest.png"
+    zoom 0.5
 
 
 default happiness = 5
 
 label start:
-    while True:
-        if happiness = 0:
-            "Asher gave up on his will to live"
-            return
-        else:
-            pass
+    $ renpy.music.set_volume(0.5, channel="music")
+    play music "background.mp3"
+
     # Show a background. This uses a placeholder by default, but you can
     # add a file (named either "bg room.png" or "bg room.jpg") to the
     # images directory to show it.
 
-    scene bg locker
+    scene intro
 
     # This shows a character sprite. A placeholder is used, but you can
     # replace it by adding a file named "eileen happy.png" to the images
     # directory.
 
-    show ash at left
 
     # These display lines of dialogue.
 
@@ -89,26 +134,34 @@ label start_2:
     ash "Place what? No I haven’t seen it, maybe you left it at mine. I’ll keep an eye out for it"
 
     #Cuts to Asher walking home on a photo path with headphones on listening to music and bumps into bryce on the path who is walking in the opposite direction.
-
+    scene bg street
     hide ash at left
     hide harper at right
-    show bryce
+    show bryce at left
     bryce "What up, dork, you're in my road"
 
     menu:
         "punch him":
             $ happiness -=3
             show punch movie
+            "Asher attempts to punch Bryce"
+            "Bryce slips and KO's him"
             # Asher moves a fist into bryce's face, bryce moves his fist back into a punch making contact with asher's face, then asher lies on the floor beaten up basically dead
             jump crying
 
         "apologise for existing":
+            hide bryce
+            show ash
             ash "Sorry for being here"
+            hide ash
+            show bryce
             bryce "You should be sorry, nerd"
             jump drawing
 
         "ignore him":
             $ happiness -=1
+            hide bryce
+            show bryce_shouting
             bryce "You deaf or smth?"
             bryce "I said"
             bryce "MOVE!"
@@ -116,53 +169,93 @@ label start_2:
             bryce "Are you even listening?"
             bryce "I SAID"
             bryce "YOU HEAR ME LOSER?"
+            hide bryce_shouting
+            show ash_shouting
             ash "UGHH"
+            scene bg bump
             "bryce bumps ash, he instantly falls on his face"
+            scene bg street
+            hide ash_shouting
             jump drawing
 
-        "insult him"
+        "insult him":
             $ happiness -=3
             #Come up with a better insult
+            show ash_shouting
             ash "I’m sorry it’s so hard to stay out of your way when your ego takes up all the space, discombobulated beetle"
+            hide ash_shouting
             "Bryce beats Asher up"
             jump crying
 
 
 
 label crying:
+    scene bg house
     # crying in his bed at home
     #Phone buzzes physically moving with text message appearing on the screen from mum about dinner and he texts back pizza
+
     mum "hey, dinner plans?"
+    show ash_talking
     ash "Pizza would be good"
+    hide ash_talking
     mum "Alright, come down then"
     #Eats pizza with mum sitting at a table next to each other and mum is oblivious not realy looking at him but rather just on her food unfocused to everything and asher sees sitting on the table a lipsticks grabbing it with his hands and then shoving it in his pocket
     mum "How’s school going for you?"
+    show ash_talking
     ash "It’s going fine"
+    hide ash_talking
     "Asher sleeps"
     jump library
 
 
 label drawing:
+
     # him at home drawing
     #Phone buzzes physically moving with text message appearing on the screen from mum about dinner and he texts back pizza
-    mum "hey, dinner plans?"
-    ash "Pizza would be good"
-    mum "Alright, come down then"
+    scene text1
+    "continue"
+    scene text2
+    "continue"
+    scene text3
+    "continue"
+    scene text4
+    "continue"
+    scene bg house
     # Eats pizza with mum sitting at a table next to each other and mum is oblivious not realy looking at him but rather just on her food unfocused to everything and asher sees sitting on the table a lipsticks grabbing it with his hands and then shoving it in his pocket
     mum "How’s school going for you?"
+    show ash_talking
     ash "It’s going fine"
+    hide ash_talking
     "Asher sleeps"
     jump library
 
 label library:
     #school library with harper sitting at a table doing work, harper gets up moving away to get something, her phone is placed facing up positioned on the table with the screen on the table powered on displaying the home screen.
+    scene library
+    show harper
     harper "Okay I’ll be back. Just don’t do anything stupid like I don’t know die"
+    hide harper
+    "Her phone is unlocked"
 
     menu:
         "Plays a game on it":
-            #he picks up the phone and play lollie rush with a colourful game displayed clearly on the screen with his thumbs touching them and harper gets back to the table standing near and yells
+        #he picks up the phone and play lollie rush with a colourful game displayed clearly on the screen with his thumbs touching them and harper gets back to the table standing near and yells
+            $ happiness -= 2
+            show harper_shouting
             harper "WHAT THE HELL ARE YOU DOING ON MY PHONE GIVE IT BACK"
-            ash "I was just playing Lollie rush, sorry”
+            hide harper_shouting
+            show ash_talking
+            ash "I was just playing Lollie rush, sorry"
+            hide ash_talking
+            if happiness == 0:
+                show ash
+                ash "I'm so done. I can't do this anymore. I'm going home"
+                hide ash
+                "Ending 2: Forever hopeless"
+                show bg black with fade
+                return
+            else:
+                pass
             jump start_3
         "Leave it":
             "nothing happens"
@@ -170,10 +263,125 @@ label library:
             jump start_3
         "Look through it":
             #he opens the contact app and sees a name, bryce  displayed on the screen in contacts and convinces himself nothing is happening and she gets back and yells
-            harper: "WHAT THE HELL ARE YOU DOING ON MY PHONE GIVE THAT BACK”
-            ash: "Sorry"
+            show harper_shouting
+            harper "WHAT THE HELL ARE YOU DOING ON MY PHONE GIVE THAT BACK"
+            hide harper_shouting
+            show ash_talking
+            ash "Sorry"
+            hide ash_talking
+            $ happiness -= 2
+            if happiness == 0:
+                show ash
+                ash "I'm so done. I can't do this anymore. I'm going home"
+                hide ash
+                "Ending 2: Forever hopeless"
+                show bg black with fade
+                return
+            else:
+                pass
             jump start_3
+        "Turn it off":
+            # it turns off the phone now is seen to be black and nothing happens
+            "..."
+
 
 label start_3:
-    pass
+"the bell rings, telling everyone next period is starting"
+scene bg locker
+"Asher grabs the lipstick"
+"When he comes back, he sees the back of Harper's head"
+"He walks closer and sees"
+"Bryce"
+show kissing
+"The sounds of their lips contracting"
+"Tongues twisting and twirling"
+"Spit covering their mouths"
+hide kissing
+menu:
+   "Walk away":
+       "Asher sprints to the bathroom"
+       ash "*sobs*"
+       $ happiness -= 2
+       if happiness == 0:
+           ash "I'm so done. I can't do this anymore. I'm going home"
+           "Ending 2: Forever hopeless"
+           show bg black with fade
+           return
+       else:
+        jump toilet
+   "I'll confront her later":
+       $ happiness -= 2
+       show ash_talking
+       ash "What the hell was that?"
+       hide ash_talking
+       show harper_happy
+       harper "Bryce is just amazing and you're not, did you really think I would choose you over someone like him? He’s so much better"
+       hide harper_happy
+       if happiness == 0:
+           ash "I'm so done. I can't do this anymore. I'm going home"
+           "Ending 2: Forever hopeless"
+           show bg black with fade
+           return
+       else:
+          jump toilet
+   "Confront them":
+       $ happiness -= 4
+       show ash_shouting
+       ash "WHAT THE HELLLL IS GOING ON"
+       hide ash_shouting
+       show bryce_smile
+       bryce "*laughs* It's so pathetic that you thought harper actually liked you."
+       bryce "I mean, come on, I'm surprised it took you so long to catch on"
+       hide bryce_smile
+       if happiness == 0:
+           ash "I'm so done. I can't do this anymore. I'm going home"
+           "Ending 2: Forever hopeless"
+           show bg black with fade
+           return
+       else:
+          jump toilet
+   "Confront Bryce later":
+       #he waits until bryce notices him and then bryce laughs at him and how he’s such a loser and shoves him into a bin head first facing down and then once bryce leaves he gets out of the bin and runs away sad to the bathroom.
+       $ happiness -=3
+       if happiness == 0:
+          ash "I'm so done. I can't do this anymore. I'm going home"
+          "Ending 2: Forever hopeless"
+          show bg black with fade
+          return
+       else:
+           show ash_talking
+           ash "what are you doing with her"
+           hide ash_talking
+           show bryce_smile
+           bryce "*laughs* you're such a loser, isn't it obvious?"
+           hide bryce_smile
+           jump toilet
+
+label toilet:
+    scene bg toilet
+    show crying
+    ash "I thought she"
+    ash "She loved me"
+    ash "Maybe"
+    ash "She never did after all"
+    ash "I'm never falling in love again!"
+    hide crying
+    show more_crying
+    ash "It was her fault"
+    ash "Women are all the same"
+    ash "All they do is fall for the hot bully"
+    ash "And as soon as someone like me comes along"
+    ash "They play with my feelings"
+    ash "And watch me suffer"
+    hide more_crying
+    show cryingest
+    ash "Now it's my turn"
+    ash "If I'm coming down"
+    ash "She's coming with me"
+    hide cryingest
+    show voice
+    unknown_voice "Ash, take a second to think"
+    unknown_voice "Is she really worth all that effort?"
+    unknown_voice "You still have a life ahead of you"
+    "Ending 1: A glint of hope"
 return
